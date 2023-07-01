@@ -14,5 +14,3 @@ services:
       - traefik.port=80
     volumes:
       - ./vw-data/:/data
-    ports:
-      - 80:80
