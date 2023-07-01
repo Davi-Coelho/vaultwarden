@@ -16,3 +16,7 @@ services:
       - ./vw-data/:/data
     networks:
       - web
+
+networks:
+  web:
+    external: true
