@@ -7,6 +7,7 @@ services:
     environment:
       WEBSOCKET_ENABLED: "true"
       DOMAIN: "https://vaultwarden.davicoelho.com"
+      ADMIN_TOKEN: ADMINTOKEN
     labels:
       - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.davicoelho.com`)
       - traefik.http.routers.vaultwarden.tls=true
