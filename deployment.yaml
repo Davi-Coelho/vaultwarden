@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vaultwarden
+  namespace: default
+  labels:
+    app: vaultwarden
+spec:
+  replicas: 3
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: vaultwarden
+  template:
+    metadata:
+      labels:
+        app: vaultwarden
+    spec:
+      containers:
+      - image: vaultwarden/server:latest
+        name: vaultwarden
+        ports:
+        - containerPort: 80
+        env:
+        - name: WEBSOCKET_ENABLE
+          value: "true"
+        - name: DOMAIN
+          value: "https://vaultwarden.davicoelho.com"
+        - name: ADMIN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: vaultwarden-admin-token
+              key: token
+        volumeMounts:
+        - name: "vaultwarden-data-dir"
+          mountPath: '/data'
+      volumes:
+      - name: "vaultwarden-data-dir"
+        persistentVolumeClaim:
+          claimName: "vaultwarden-data"
+      
