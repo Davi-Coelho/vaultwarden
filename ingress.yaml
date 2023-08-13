@@ -16,5 +16,11 @@ spec:
       services:
         - name: vaultwarden
           port: 80
+          sticky:
+            cookie:
+              httpOnly: true
+              name: SESSION
+              secure: true
+              sameSite: none
   tls:
     secretName: vaultwarden-davicoelho-com-tls
